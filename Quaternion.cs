@@ -6,28 +6,20 @@ namespace QuaternionStudy
     /// 以下のページの説明が分かりやすかった。
     /// https://manabitimes.jp/math/983
     /// </summary>
-    public class Quaternion
+    /// <param name="r">実部</param>
+    /// <param name="i">虚部i</param>
+    /// <param name="j">虚部j</param>
+    /// <param name="k">虚部k</param>
+    public class Quaternion(double r, double i, double j, double k)
     {
         /// <summary>実部</summary>
-        readonly double r;
+        readonly double r = r;
         /// <summary>虚部i</summary>
-        readonly double i;
+        readonly double i = i;
         /// <summary>虚部j</summary>
-        readonly double j;
+        readonly double j = j;
         /// <summary>虚部k</summary>
-        readonly double k;
-
-        /// <param name="r">実部</param>
-        /// <param name="i">虚部i</param>
-        /// <param name="j">虚部j</param>
-        /// <param name="k">虚部k</param>
-        public Quaternion(double r, double i, double j, double k)
-        {
-            this.r = r;
-            this.i = i;
-            this.j = j;
-            this.k = k;
-        }
+        readonly double k = k;
 
         public static Quaternion operator *(Quaternion a, Quaternion b)
         {
@@ -65,7 +57,7 @@ namespace QuaternionStudy
         }
 
         /// <returns>共役(虚数部の符号を反転させたもの)</returns>
-        public Quaternion Conjugate => new Quaternion(r, -i, -j, -k);
+        public Quaternion Conjugate => new(r, -i, -j, -k);
 
         double Norm2 => r * r + i * i + j * j + k * k;
 
@@ -84,7 +76,7 @@ namespace QuaternionStudy
         public double[] Rotate(double[] v)
         {
             var q = this * new Quaternion(0, v[0], v[1], v[2]) * Conjugate;
-            return new double[] { q.i, q.j, q.k };
+            return [q.i, q.j, q.k];
         }
 
         public override string ToString()
